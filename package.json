@@ -1,0 +1,16 @@
+{
+  "name": "ass_tetris",
+  "version": "1.0.0",
+  "description": "复刻俄罗斯方块",
+  "main": "index.ts",
+  "author": "aoshisen",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^4.3.9"
+  }
+}
