@@ -1,4 +1,12 @@
-// import React from "react"
+import { useState } from "react";
 export const App = () => {
-  return <div id="app">this is app</div>
+  const [number, setNumber] = useState(1);
+  function handleClick() {
+    setNumber(number + 1);
+  }
+  return (
+    <div id="app" onClick={handleClick}>
+      this {number}
+    </div>
+  );
 };
