@@ -6,7 +6,6 @@
   "author": "aoshisen",
   "license": "MIT",
   "private": false,
-
   "scripts": {
     "start": "vite",
     "build": "vite build"
