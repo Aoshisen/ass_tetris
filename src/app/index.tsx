@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./App.module.scss";
+import styles from "./index.module.scss";
 export const App = () => {
   const [number, setNumber] = useState(1);
   function handleClick() {
