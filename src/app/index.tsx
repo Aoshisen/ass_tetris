@@ -1,13 +1,13 @@
-import { useState } from "react";
 import styles from "./index.module.scss";
+import { Game } from "@components";
+
 export const App = () => {
-  const [number, setNumber] = useState(1);
-  function handleClick() {
-    setNumber(number + 1);
-  }
   return (
-    <div id="app" onClick={handleClick} className={styles.app}>
-      this {number}
+    <div className={styles.app}>
+      <Game>
+        <Game.Screen></Game.Screen>
+        <Game.Buttons></Game.Buttons>
+      </Game>
     </div>
   );
 };
