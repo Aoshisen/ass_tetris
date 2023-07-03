@@ -1,17 +1,14 @@
 import React from "react";
 import Buttons from "./Buttons";
 import Screen from "./Screen";
+
+import styles from "./index.module.scss";
 interface IGame {
   children?: any;
 }
 
 const GameInternal: React.FC<IGame> = ({ children }) => {
-  return (
-    <div>
-      Game
-      {children}
-    </div>
-  );
+  return <div className={styles.game}>{children}</div>;
 };
 
 type ButtonComponent = typeof GameInternal & {
