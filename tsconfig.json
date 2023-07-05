@@ -20,13 +20,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@components": ["src/components"],
       "@components/*": ["src/components/*"],
-      "@utils": ["src/utils"],
-      "@utils/*": ["src/utils/*"]
+      "@unit": ["src/unit"],
+      "@unit/*": ["src/unit/*"]
     }
   },
   "include": ["src"],

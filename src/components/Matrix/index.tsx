@@ -1,16 +1,14 @@
-import { Blocks } from "..";
+import { Blocks } from "@components";
 import styles from "./index.module.scss";
-
-const row = Array(10).fill(0);
-const matrix = Array(20).fill(row);
+import { blankMatrix } from "@unit";
 
 export const Matrix = () => {
   return (
     <div className={styles.matrix}>
-      {matrix.map((rowData, rowIndex) => {
+      {blankMatrix.map((rowData, rowIndex) => {
         return (
           <p key={rowIndex}>
-            {rowData.map((blockData: number, blockIndex: number) => {
+            {rowData.map((_: number, blockIndex: number) => {
               return <Blocks.Block key={blockIndex}></Blocks.Block>;
             })}
           </p>
