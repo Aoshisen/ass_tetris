@@ -1,11 +1,13 @@
 import styles from "./index.module.scss";
-import { Layout } from "@components";
+import { Layout, Matrix } from "@components";
 export const App = () => {
   return (
     <div className={styles.app}>
       <Layout.Game>
-        <Layout.Screen>this is Screen</Layout.Screen>
-        <Layout.Keys>this is Keys</Layout.Keys>
+        <Layout.Screen>
+          <Matrix />
+        </Layout.Screen>
+        <Layout.Controller>this is Keys</Layout.Controller>
       </Layout.Game>
     </div>
   );

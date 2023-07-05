@@ -1,7 +1,7 @@
 import { Game } from "./Game";
 import { Screen } from "./Screen";
-import { Keys } from "./Keys";
+import { Controller } from "./Controller";
 
-const Layout = { Game, Screen, Keys };
+const Layout = { Game, Screen, Controller };
 
 export { Layout };
