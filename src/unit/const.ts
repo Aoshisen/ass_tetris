@@ -1,5 +1,3 @@
-import { List } from "immutable";
-
 //一些图形的形状
 const blockShape = {
   I: [[1, 1, 1, 1]],
@@ -42,7 +40,7 @@ const fillLine = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 const blankLine = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 //定义初始的视图
-const blankMatrix = List(Array(20).fill(blankLine) as number[][]);
+const blankMatrix = Array(20).fill(blankLine);
 
 //定义存在localStorage 里面数据的值
 const StorageKey = "ASS_TETRIS";
