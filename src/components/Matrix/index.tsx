@@ -25,16 +25,19 @@ function injectCurDataToMatrix({
   matrixData: number[][];
 }) {
   const { shape, xy } = curData;
-  const cur = toListData(shape);
-  const matrix = toListData(matrixData);
-  console.log(cur, matrix);
-  let result = matrixData.map((p: number[]) => {
-    let rowData = List(p);
-    let newData = rowData.set(0, 1);
-    return newData.toJS();
+  const shapeList = toListData(shape);
+  let matrix = toListData(matrixData);
+  if (!xy) {
+    return;
+  }
+  shapeList.map((shape, k1) => {
+    for (let i = 0; i < 10; i++) {
+      const item = shape.get(i) || 0;
+      const temp = shape.set(i, item);
+      matrix = matrix.set(k1, temp);
+    }
   });
-
-  return result as number[][];
+  return matrix.toJS();
 }
 
 const Matrix = () => {

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const curSlice = createSlice({
   name: "cur",
-  initialState: createBlock({ type: "S" }),
+  initialState: createBlock({ type: "S", xy: [3, 4] }),
   reducers: {
     move: (_, { payload }) => {
       return payload;
