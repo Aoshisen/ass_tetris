@@ -83,8 +83,8 @@ function createBlock({
       let result = createArray(maxX + 1);
       shape.forEach((rowData, y) => {
         rowData.forEach((colData, x) => {
-          const nextX = maxY - 1 - x;
-          const nextY = maxX - 1 - y;
+          const nextX = x;
+          const nextY = maxY  - y;
           result[nextX][nextY] = colData;
         });
       });
