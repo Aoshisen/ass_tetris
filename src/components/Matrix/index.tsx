@@ -8,8 +8,15 @@ import { RootState } from "@/store";
 
 import { blankMatrix } from "@/unit/const";
 import { List } from "immutable";
+function toListData(array) {
+  let result = List<any>([]);
+  array.map((item: any, index: number) => {
+    result.set(index, List(item));
+  });
+  return result;
+}
 
-function injectCurDataToMatrix({ curData, matrixData }) {
+function injectCurDataToMatrix({ curData, matrixData }: any) {
   let result = matrixData.map((p: number[]) => {
     let rowData = List(p);
     let newData = rowData.set(0, 1);
@@ -34,7 +41,6 @@ const Matrix = () => {
     curData: curData,
     matrixData: matrixData,
   });
-  console.log(renderMatrixData);
 
   return (
     <div className={styles.matrix}>

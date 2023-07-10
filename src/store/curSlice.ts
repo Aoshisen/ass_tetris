@@ -1,13 +1,12 @@
+import { createBlock } from "@/unit";
 import { createSlice } from "@reduxjs/toolkit";
-import { List } from "immutable";
 
 export const curSlice = createSlice({
   name: "cur",
-  initialState: {},
+  initialState: createBlock({ type: "S" }),
   reducers: {
     move: (_, { payload }) => {
-      const payloadState = List(payload);
-      return payloadState.toJS();
+      return payload;
     },
   },
 });
