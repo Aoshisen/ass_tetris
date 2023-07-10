@@ -84,7 +84,7 @@ function createBlock({
       shape.forEach((rowData, y) => {
         rowData.forEach((colData, x) => {
           const nextX = x;
-          const nextY = maxY  - y;
+          const nextY = maxY - y;
           result[nextX][nextY] = colData;
         });
       });
@@ -154,4 +154,8 @@ function createBlock({
   return result;
 }
 
+type CreateBlock = typeof createBlock;
+
 export { createBlock };
+
+export type { CreateBlock, CreateBlockParam };

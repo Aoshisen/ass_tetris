@@ -5,18 +5,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeTo } from "@/store/matrixSlice";
 import { move } from "@/store/curSlice";
 import { RootState } from "@/store";
+import { CreateBlock } from "@/unit";
 
 import { blankMatrix } from "@/unit/const";
 import { List } from "immutable";
-function toListData(array) {
-  let result = List<any>([]);
-  array.map((item: any, index: number) => {
-    result.set(index, List(item));
+function toListData(array: number[][]) {
+  let result = List<List<number>>([]);
+  array.map((item, index: number) => {
+    result = result.set(index, List(item));
   });
   return result;
 }
 
-function injectCurDataToMatrix({ curData, matrixData }: any) {
+function injectCurDataToMatrix({
+  curData,
+  matrixData,
+}: {
+  curData: ReturnType<CreateBlock>;
+  matrixData: number[][];
+}) {
+  const { shape, xy } = curData;
+  const cur = toListData(shape);
+  const matrix = toListData(matrixData);
+  console.log(cur, matrix);
   let result = matrixData.map((p: number[]) => {
     let rowData = List(p);
     let newData = rowData.set(0, 1);
