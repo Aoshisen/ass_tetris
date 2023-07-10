@@ -1,4 +1,3 @@
-import { List } from "immutable";
 import { blockShape, origin } from "./const";
 
 interface CreateBlockParam {
@@ -16,6 +15,7 @@ function createArray(length: number) {
   }
   return result as number[][];
 }
+
 function createBlock({
   type,
   rotateIndex,
@@ -122,13 +122,33 @@ function createBlock({
     };
   }
   function fall(n = 1) {
-    console.log("fall", n);
+    if (!xy) {
+      return;
+    }
+    //更新timeStamp;
+    return {
+      ...result,
+      xy: [xy[0] + n, xy[1]],
+      timeStamp: Date.now(),
+    };
   }
   function right() {
-    console.log("right");
+    if (!xy) {
+      return;
+    }
+    return {
+      ...result,
+      xy: [xy[0], xy[1] + 1],
+    };
   }
   function left() {
-    console.log("left");
+    if (!xy) {
+      return;
+    }
+    return {
+      ...result,
+      xy: [xy[0], xy[1] - 1],
+    };
   }
 
   return result;
