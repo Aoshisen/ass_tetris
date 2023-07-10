@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import matrixSlice from "./matrixSlice";
+import curSlice from "./curSlice";
 
 const store = configureStore({
   reducer: {
     matrix: matrixSlice,
+    cur: curSlice,
   },
 });
 
