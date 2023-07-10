@@ -9,6 +9,13 @@ interface CreateBlockParam {
   xy?: [number, number];
 }
 
+function createArray(length: number) {
+  let result = [];
+  for (let i = 0; i < length; i++) {
+    result.push([]);
+  }
+  return result as number[][];
+}
 function createBlock({
   type,
   rotateIndex,
@@ -54,7 +61,7 @@ function createBlock({
     }
   }
 
-  let result = {
+  let data = {
     shape,
     type,
     xy,
@@ -62,13 +69,13 @@ function createBlock({
     timeStamp,
   };
 
-  function createArray(length: number) {
-    let result = [];
-    for (let i = 0; i < length; i++) {
-      result.push([]);
-    }
-    return result as number[][];
-  }
+  const method = {
+    rotate,
+    fall,
+    right,
+    left,
+  };
+  const result = { ...method, ...data };
   function rotate() {
     function getNextShape(shape: number[][]) {
       const maxY = shape.length - 1;
@@ -124,13 +131,7 @@ function createBlock({
     console.log("left");
   }
 
-  return {
-    ...result,
-    rotate,
-    fall,
-    right,
-    left,
-  };
+  return result;
 }
 
 export { createBlock };
