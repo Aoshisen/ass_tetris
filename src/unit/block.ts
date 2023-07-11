@@ -97,28 +97,28 @@ function createBlock({
       if (typeof rotateIndex === "undefined") {
         return;
       }
+      console.log(origin[type][rotateIndex], rotateIndex, type);
       const result = [
-        xy[0] + origin[type][rotateIndex][0],
-        xy[1] + origin[type][rotateIndex][1],
+        xy[0] + origin[type][rotateIndex][1],
+        xy[1] + origin[type][rotateIndex][0],
       ];
-      return result;
+      return result as [number, number];
     }
 
     function getNextIndex(index: number) {
-      console.log(index);
-      const totalIndex = origin[type].length;
+      const totalIndex = origin[type].length - 1;
       const nextIndex = index + 1;
       return nextIndex > totalIndex ? 0 : nextIndex;
     }
 
-    if (!(rotateIndex && xy && shape)) {
+    if (!(rotateIndex !== undefined && xy && shape)) {
       return;
     }
     return {
       ...result,
-      rotateIndex: getNextIndex(rotateIndex),
-      xy: getNextXy(xy),
-      shape: getNextShape(shape),
+      rotateIndex: (rotateIndex = getNextIndex(rotateIndex)),
+      xy: (xy = getNextXy(xy)),
+      shape: (shape = getNextShape(shape)),
     };
   }
   function fall(n = 1) {
@@ -128,8 +128,8 @@ function createBlock({
     //更新timeStamp;
     return {
       ...result,
-      xy: [xy[0] + n, xy[1]],
-      timeStamp: Date.now(),
+      xy: (xy = [xy[0] + n, xy[1]]),
+      timeStamp: (timeStamp = Date.now()),
     };
   }
   function right() {
@@ -138,7 +138,7 @@ function createBlock({
     }
     return {
       ...result,
-      xy: [xy[0], xy[1] + 1],
+      xy: (xy = [xy[0], xy[1] + 1]),
     };
   }
   function left() {
@@ -147,7 +147,7 @@ function createBlock({
     }
     return {
       ...result,
-      xy: [xy[0], xy[1] - 1],
+      xy: (xy = [xy[0], xy[1] - 1]),
     };
   }
 

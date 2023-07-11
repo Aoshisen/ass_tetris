@@ -5,17 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeTo } from "@/store/matrixSlice";
 import { move } from "@/store/curSlice";
 import { RootState } from "@/store";
-import { CreateBlock } from "@/unit";
 
-import { blankMatrix } from "@/unit/const";
-import { List } from "immutable";
-function toListData(array: number[][]) {
-  let result = List<List<number>>([]);
-  array.map((item, index: number) => {
-    result = result.set(index, List(item));
-  });
-  return result;
-}
+import { blankMatrix, CreateBlock, toListData } from "@unit";
 
 function injectCurDataToMatrix({
   curData,
@@ -28,14 +19,28 @@ function injectCurDataToMatrix({
   const shapeList = toListData(shape);
   let matrix = toListData(matrixData);
   if (!xy) {
-    return;
+    return matrixData;
   }
-  shapeList.map((shape, k1) => {
-    for (let i = 0; i < 10; i++) {
-      const item = shape.get(i) || 0;
-      const temp = shape.set(i, item);
-      matrix = matrix.set(k1, temp);
-    }
+  //主要的功能实现
+  shapeList.forEach((shape, shapeY) => {
+    const x = xy[1];
+    const y = xy[0];
+    shape.forEach((dot, shapeX) => {
+      if (shapeY + y >= 0 && dot) {
+        let line = matrix.get(shapeY + y);
+        if (line) {
+          let color;
+          if (line.get(x + shapeX) === 1) {
+            // 矩阵与方块重合
+            color = 2;
+          } else {
+            color = 1;
+          }
+          line = line?.set(shapeX + x, color);
+          matrix = matrix.set(y + shapeY, line);
+        }
+      }
+    });
   });
   return matrix.toJS();
 }
@@ -43,12 +48,23 @@ function injectCurDataToMatrix({
 const Matrix = () => {
   const matrixData = useSelector((store: RootState) => store.matrix);
   const curData = useSelector((store: RootState) => store.cur);
+  const { rotate, left, right, fall } = curData;
   const dispatch = useDispatch();
   function handleClear() {
     dispatch(changeTo(blankMatrix));
   }
-  function handleAddCur() {
-    dispatch(move(blankMatrix));
+  function handleRotate() {
+    dispatch(move(rotate()));
+  }
+  function handleLeft() {
+    dispatch(move(left()));
+  }
+
+  function handleRight() {
+    dispatch(move(right()));
+  }
+  function handleFall() {
+    dispatch(move(fall()));
   }
 
   const renderMatrixData = injectCurDataToMatrix({
@@ -73,7 +89,10 @@ const Matrix = () => {
           </p>
         );
       })}
-      <button onClick={handleAddCur}> clear</button>
+      <button onClick={handleRotate}> rotate</button>
+      <button onClick={handleLeft}> left</button>
+      <button onClick={handleRight}> right</button>
+      <button onClick={handleFall}> fall</button>
     </div>
   );
 };

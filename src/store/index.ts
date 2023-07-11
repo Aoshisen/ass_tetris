@@ -8,6 +8,11 @@ const store = configureStore({
     matrix: matrixSlice,
     cur: curSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      //关闭序列化状态检测中间件
+      serializableCheck: false,
+    }),
 });
 
 export default store;
