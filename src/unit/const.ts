@@ -26,6 +26,17 @@ const blockShape = {
     [1, 1, 1],
   ],
 };
+const beginPoints: {
+  [a: string]: [number, number];
+} = {
+  I: [0, 3],
+  L: [-1, 4],
+  J: [-1, 4],
+  Z: [-1, 4],
+  S: [-1, 4],
+  O: [-1, 4],
+  T: [-1, 4],
+};
 
 //图形形状对应的type
 const blockType = Object.keys(blockShape);
@@ -126,4 +137,5 @@ export {
   eachLine,
   getParam,
   origin,
+  beginPoints,
 };
