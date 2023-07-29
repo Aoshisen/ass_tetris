@@ -1,3 +1,3 @@
 export * from "./Layouts";
-export * from "./Blocks";
+export * from "./Block";
 export * from "./Matrix";

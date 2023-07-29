@@ -63,29 +63,21 @@ function createBlock({
         break;
     }
   }
-  const methods = { rotate, fall, right, left };
 
-  function enrich(data: any, methods: any) {
-    return { ...data, ...methods };
-  }
-
-  let result = enrich(
-    {
-      type,
-      rotateIndex,
-      timeStamp,
-      shape,
-      xy,
-    },
-    {
-      rotate,
-      left,
-      right,
-      fall,
-    }
-  );
+  let result = {
+    type,
+    rotateIndex,
+    timeStamp,
+    shape,
+    xy,
+    rotate,
+    left,
+    right,
+    fall,
+  };
 
   function rotate() {
+    const { rotateIndex, xy, shape } = result;
     function getNextShape(shape: number[][]) {
       const maxY = shape.length - 1;
       const maxX = shape[0].length - 1;
@@ -132,6 +124,7 @@ function createBlock({
   }
 
   function fall(n = 1) {
+    const { xy } = result;
     if (!xy) {
       return;
     }
@@ -144,24 +137,24 @@ function createBlock({
   }
 
   function right() {
+    const { xy } = result;
     if (!xy) {
       return;
     }
     return (result = {
       ...result,
-      ...methods,
-      xy: (xy = [xy[0], xy[1] + 1]),
+      xy: [xy[0], xy[1] + 1],
     });
   }
 
   function left() {
-    console.log(shape, "this is shape");
+    const { xy } = result;
     if (!xy) {
       return;
     }
     return (result = {
       ...result,
-      xy: (xy = [xy[0], xy[1] - 1]),
+      xy: [xy[0], xy[1] - 1],
     });
   }
 

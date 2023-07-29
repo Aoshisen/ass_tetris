@@ -1,12 +1,11 @@
-import { Blocks } from "@components";
+import { Block } from "../Block";
 import styles from "./index.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 
-import { changeTo } from "@/store/matrixSlice";
 import { move } from "@/store/curSlice";
 import { RootState } from "@/store";
 
-import { blankMatrix, CreateBlock, toListData } from "@unit";
+import {  CreateBlock, toListData } from "@unit";
 
 function injectCurDataToMatrix({
   curData,
@@ -77,11 +76,11 @@ const Matrix = () => {
           <p key={rowIndex}>
             {rowData.map((blockData: number, blockIndex: number) => {
               return (
-                <Blocks.Block
+                <Block
                   key={blockIndex}
                   blink={blockData === 2}
                   active={blockData === 1}
-                ></Blocks.Block>
+                ></Block>
               );
             })}
           </p>
