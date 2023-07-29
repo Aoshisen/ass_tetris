@@ -26,12 +26,15 @@ function createBlock({
   if (!rotateIndex) {
     rotateIndex = 0;
   }
+
   if (!timeStamp) {
     timeStamp = Date.now();
   }
+
   if (!shape) {
     shape = blockShape[type].map((e) => e);
   }
+
   if (!xy) {
     switch (type) {
       //定义开始下落时的方块坐标
@@ -60,22 +63,28 @@ function createBlock({
         break;
     }
   }
+  const methods = { rotate, fall, right, left };
 
-  let data = {
-    shape,
-    type,
-    xy,
-    rotateIndex,
-    timeStamp,
-  };
+  function enrich(data: any, methods: any) {
+    return { ...data, ...methods };
+  }
 
-  const method = {
-    rotate,
-    fall,
-    right,
-    left,
-  };
-  const result = { ...method, ...data };
+  let result = enrich(
+    {
+      type,
+      rotateIndex,
+      timeStamp,
+      shape,
+      xy,
+    },
+    {
+      rotate,
+      left,
+      right,
+      fall,
+    }
+  );
+
   function rotate() {
     function getNextShape(shape: number[][]) {
       const maxY = shape.length - 1;
@@ -114,41 +123,46 @@ function createBlock({
     if (!(rotateIndex !== undefined && xy && shape)) {
       return;
     }
-    return {
+    return (result = {
       ...result,
-      rotateIndex: (rotateIndex = getNextIndex(rotateIndex)),
-      xy: (xy = getNextXy(xy)),
-      shape: (shape = getNextShape(shape)),
-    };
+      rotateIndex: getNextIndex(rotateIndex),
+      xy: getNextXy(xy),
+      shape: getNextShape(shape),
+    });
   }
+
   function fall(n = 1) {
     if (!xy) {
       return;
     }
     //更新timeStamp;
-    return {
+    return (result = {
       ...result,
-      xy: (xy = [xy[0] + n, xy[1]]),
-      timeStamp: (timeStamp = Date.now()),
-    };
+      xy: [xy[0] + n, xy[1]],
+      timeStamp: Date.now(),
+    });
   }
+
   function right() {
     if (!xy) {
       return;
     }
-    return {
+    return (result = {
       ...result,
+      ...methods,
       xy: (xy = [xy[0], xy[1] + 1]),
-    };
+    });
   }
+
   function left() {
+    console.log(shape, "this is shape");
     if (!xy) {
       return;
     }
-    return {
+    return (result = {
       ...result,
       xy: (xy = [xy[0], xy[1] - 1]),
-    };
+    });
   }
 
   return result;

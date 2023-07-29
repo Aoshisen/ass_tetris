@@ -50,9 +50,7 @@ const Matrix = () => {
   const curData = useSelector((store: RootState) => store.cur);
   const { rotate, left, right, fall } = curData;
   const dispatch = useDispatch();
-  function handleClear() {
-    dispatch(changeTo(blankMatrix));
-  }
+  console.log(curData,"this is curData")
   function handleRotate() {
     dispatch(move(rotate()));
   }
