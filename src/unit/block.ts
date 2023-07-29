@@ -64,20 +64,15 @@ function createBlock({
     }
   }
 
-  let result = {
+  let params = {
     type,
     rotateIndex,
     timeStamp,
     shape,
     xy,
-    rotate,
-    left,
-    right,
-    fall,
   };
 
   function rotate() {
-    const { rotateIndex, xy, shape } = result;
     function getNextShape(shape: number[][]) {
       const maxY = shape.length - 1;
       const maxX = shape[0].length - 1;
@@ -115,8 +110,8 @@ function createBlock({
     if (!(rotateIndex !== undefined && xy && shape)) {
       return;
     }
-    return (result = {
-      ...result,
+    return createBlock({
+      ...params,
       rotateIndex: getNextIndex(rotateIndex),
       xy: getNextXy(xy),
       shape: getNextShape(shape),
@@ -124,41 +119,39 @@ function createBlock({
   }
 
   function fall(n = 1) {
-    const { xy } = result;
     if (!xy) {
       return;
     }
     //更新timeStamp;
-    return (result = {
-      ...result,
+    return createBlock({
+      ...params,
       xy: [xy[0] + n, xy[1]],
       timeStamp: Date.now(),
     });
   }
 
   function right() {
-    const { xy } = result;
     if (!xy) {
       return;
     }
-    return (result = {
-      ...result,
+    return createBlock({
+      ...params,
       xy: [xy[0], xy[1] + 1],
     });
   }
 
   function left() {
-    const { xy } = result;
     if (!xy) {
       return;
     }
-    return (result = {
-      ...result,
+
+    return createBlock({
+      ...params,
       xy: [xy[0], xy[1] - 1],
     });
   }
 
-  return result;
+  return { ...params, left, right, fall, rotate };
 }
 
 type CreateBlock = typeof createBlock;

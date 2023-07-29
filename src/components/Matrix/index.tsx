@@ -1,11 +1,9 @@
 import { Block } from "../Block";
 import styles from "./index.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-
-import { move } from "@/store/curSlice";
 import { RootState } from "@/store";
-
-import {  CreateBlock, toListData } from "@unit";
+import { CreateBlock, toListData } from "@unit";
+import { Fall, Left, Rotate, Right } from "@/controllers";
+import { useSelector } from "react-redux";
 
 function injectCurDataToMatrix({
   curData,
@@ -41,28 +39,13 @@ function injectCurDataToMatrix({
       }
     });
   });
+
   return matrix.toJS();
 }
 
 const Matrix = () => {
   const matrixData = useSelector((store: RootState) => store.matrix);
   const curData = useSelector((store: RootState) => store.cur);
-  const { rotate, left, right, fall } = curData;
-  const dispatch = useDispatch();
-  console.log(curData,"this is curData")
-  function handleRotate() {
-    dispatch(move(rotate()));
-  }
-  function handleLeft() {
-    dispatch(move(left()));
-  }
-
-  function handleRight() {
-    dispatch(move(right()));
-  }
-  function handleFall() {
-    dispatch(move(fall()));
-  }
 
   const renderMatrixData = injectCurDataToMatrix({
     curData: curData,
@@ -86,10 +69,10 @@ const Matrix = () => {
           </p>
         );
       })}
-      <button onClick={handleRotate}> rotate</button>
-      <button onClick={handleLeft}> left</button>
-      <button onClick={handleRight}> right</button>
-      <button onClick={handleFall}> fall</button>
+      <button onClick={Rotate}> rotate</button>
+      <button onClick={Left}> left</button>
+      <button onClick={Right}> right</button>
+      <button onClick={Fall}> fall</button>
     </div>
   );
 };
